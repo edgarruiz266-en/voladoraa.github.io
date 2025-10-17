@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
 <head>
-     <!-- 1) CSS global primero (incluye estilos del modal y sidebar) -->
+  <!-- 1) CSS global primero (incluye estilos del modal y sidebar) -->
   <link rel="stylesheet" href="../style.css" />
   <!-- 2) CSS específico de esta página (encapsulado) -->
   <link rel="stylesheet" href="stylemenu.css" />
@@ -12,7 +12,7 @@
   <!-- Tipografía (igual a la que ya usas en títulos) -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
-
+  
   <style>
     /* =========================
        SOBRE NOSOTROS (scopeado)
@@ -135,18 +135,79 @@
       .about-hero__text h1{ letter-spacing: .04em; }
       .about-hero__text p{ max-width: 100%; }
     }
+    /* Efectos de interacción SOLO para esta página */
+.catalog-back-arrow{
+  color:#0a0a0a;
+  border-radius:9999px;                     /* para que el fondo hover sea redondo */
+  transition: color .15s ease, background-color .15s ease, transform .08s ease;
+}
+.catalog-back-arrow:hover{
+  color:#0c6;                               /* verde en desktop al pasar el mouse */
+  background: rgba(18, 243, 123, 0.12);
+}
+.catalog-back-arrow:active{
+  color:#0c6;                               /* verde al “oprimir” (móvil/desktop) */
+  background: rgba(12,204,102,.22);
+  transform: scale(.94);                    /* sensación de “clic” */
+}
+.catalog-back-arrow:focus-visible{
+  outline:2px solid #0c6; outline-offset:2px;
+}
+@media (prefers-reduced-motion: reduce){
+  .catalog-back-arrow{ transition:none; }
+  
+  
+}
+.catalog-back-arrow:active{
+  color:#0c6 !important;                     /* verde al oprimir (móvil/desktop) */
+  background: rgba(12,204,102,.25);
+  transform: scale(.94);
+}
+catalog-back-arrow:focus-visible{
+  outline:2px solid #0c6; outline-offset:2px;
+}
+
   </style>
 </head>
 
 <body>
-     <!-- Sidebar en páginas /menu/: base="" para que los href apunten a hermanos -->
+  <!-- Sidebar en páginas /menu/: base="" para que los href apunten a hermanos -->
   <div id="sidebar-root" data-base=""></div>
+
+  <!-- 🔙 Flecha back fija y responsive (no toca tu CSS global) -->
+  <!-- 🔙 Flecha back flotante (arriba a la derecha) -->
+<!-- 🔙 Flecha back flotante (ARRIBA-DERECHA) -->
+<a href="../index.html"
+   class="catalog-back-arrow"
+   aria-label="Regresar"
+   title="Regresar"
+   style="
+     position: fixed;
+     top: max(14px, env(safe-area-inset-top));    /* margen superior seguro (iPhone notch) */
+     right: max(14px, env(safe-area-inset-right));/* A LA DERECHA */
+     left: auto !important;                       /* anula cualquier 'left' global */
+     
+     display: inline-flex; align-items: center; justify-content: center;
+     width: clamp(40px, 5vw, 56px);               /* área táctil cómoda y responsive */
+     height: clamp(40px, 5vw, 56px);
+     z-index: 10060;
+          text-decoration: none;
+
+          border-radius: 9999px;           /* para ver el fondo redondo en hover/active */
+     -webkit-tap-highlight-color: rgba(12,204,102,.25); /* destello verde en iOS */
+   ">
+  <svg viewBox="0 0 28 20" aria-hidden="true" style="width:70%; height:auto; display:block;">
+    <path d="M26 10 H7" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+    <path d="M11 5 L6 10 L11 15" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
+
   
   <main id="sobre-nosotros">
     <!-- HERO -->
     <div class="about-hero">
       <!-- Cambia la ruta por tu imagen -->
-      <img src="../img/banner.png"Quiénes somos - Hero">
+      <img src="../img/banner.png" alt="Quiénes somos - Hero">
       <div class="about-hero__overlay"></div>
       <div class="about-hero__text">
         <h1>QUIÉNES <span class="verde">SOMOS</span></h1>
@@ -161,7 +222,7 @@
 
       <h3 class="about-subheading">MISIÓN</h3>
       <p class="about-paragraph">
-        Vivir y compartir la experiencia en la VOLADORA : deliciosa y divertida; productos de la más alta calidad y sabor,
+        Vivir y compartir la experiencia en la VOLADORA: deliciosa y divertida; productos de la más alta calidad y sabor,
         con personal entusiasta, capacitado y una actitud de servicio excepcional.
       </p>
 
@@ -184,9 +245,11 @@
       </ul>
     </section>
   </main>
-   <footer>
+
+  <footer>
     <p>© 2025 Tu Restaurante - Todos los derechos reservados</p>
   </footer>
+
   <!-- ✅ MODAL: ALITAS / BONELESS / MIXTO (mismo que en index) -->
   <div id="alitas-modal" class="modal-overlay" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="alitas-title">
@@ -205,8 +268,8 @@
 
   <!-- Scripts -->
   <script type="module" src="../assets/js/sidebar-loader.js"></script>
-  <!-- Modal en /menu/: rutas internas se construyen con data-base="" -->
   <script type="module" src="../assets/js/modal-alitas.js"></script>
+  <script>addEventListener('touchstart',()=>{}, {passive:true});</script>
 
 </body>
 </html>
